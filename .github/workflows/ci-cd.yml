@@ -1,0 +1,30 @@
+name: Deploy API V1
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Stop old container
+        run: |
+          docker-compose down || true
+
+      - name: Build container
+        run: |
+          docker-compose build
+
+      - name: Run container
+        run: |
+          docker-compose up -d
+
+      - name: Clean unused images
+        run: |
+          docker system prune -f
