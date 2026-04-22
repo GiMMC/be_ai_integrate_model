@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual Environment
+venv/
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Database (optional)
+*.sqlite3
+
+# Testing
+.pytest_cache/
+
+# Migrations (kalau nanti pakai)
+alembic/versions/
