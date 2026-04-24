@@ -1,20 +1,11 @@
-import httpx
-import os
+from app.services.providers import openai_provider, gemini_provider
 
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-
-async def generate_text(prompt: str):
-    async with httpx.AsyncClient() as client:
-        res = await client.post(
-            "https://api.openai.com/v1/chat/completions",
-            headers={
-                "Authorization": f"Bearer {OPENAI_API_KEY}"
-            },
-            json={
-                "model": "gpt-4o-mini",
-                "messages": [
-                    {"role": "user", "content": prompt}
-                ]
-            }
-        )
-        return res.json()
+async def generate_text(model: str, prompt: str):
+    if model == "openai":
+        return await openai_provider.generate(prompt)
+    
+    elif model == "gemini":
+        return await gemini_provider.generate(prompt)
+    
+    else:
+        raise ValueError("Unsupported model")
